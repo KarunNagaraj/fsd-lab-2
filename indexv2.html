@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Car Dealership</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+<body class="m-0 p-0 bg-gray-50 text-gray-900">
+
+  <!-- Navigation Bar -->
+  <nav class="flex justify-between items-center p-4 bg-black text-white">
+    <div class="text-xl font-bold flex items-center gap-2">
+      <i class="fas fa-car"></i> AutoMax
+    </div>
+    <ul class="flex space-x-4">
+      <li><a href="#" class="hover:underline"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="#" class="hover:underline"><i class="fas fa-car-side"></i> Cars</a></li>
+      <li><a href="#" class="hover:underline"><i class="fas fa-phone"></i> Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative h-screen flex flex-col justify-center items-center text-white bg-cover bg-center"
+           style="background-image: url('car_dealership_img_lab1.jpg');">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="relative z-10 text-center px-4">
+      <h1 class="text-4xl md:text-6xl font-bold mb-4">Welcome to AutoMax</h1>
+      <p class="text-lg md:text-xl mb-6">Your trusted car dealership</p>
+      <a href="#" class="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700 transition">Browse Cars</a>
+
+
+      <!-- Promotional Video with Subtitles -->
+      <div class="mt-8 mx-auto w-full max-w-lg">
+        <video controls loop class="w-full h-full object-cover">
+  <source src="5992517-uhd_3840_2160_30fps_1.mp4" type="video/mp4" />
+  <track  kind="subtitles" srclang="en" label="English Subtitles" src="./subtitles/subtitles.vtt" default>
+  Your browser does not support the video tag.
+</video>
+
+      </div>
+    </div>
+    
+
+  </section>
+
+  <!-- Audio Element -->
+  <section class="p-6 text-center">
+    <h2 class="text-2xl font-semibold mb-4">Relax with our Background Music</h2>
+    <audio controls class="mx-auto">
+      <source src="lounge-jazz-elevator-music-324902.mp3" type="audio/mp3" />
+      Your browser does not support the audio element.
+    </audio>
+  </section>
+
+  <!-- Pokémon Fetch API Section -->
+  <section class="p-6 bg-white shadow rounded max-w-md mx-auto my-12">
+    <h2 class="text-2xl font-semibold mb-4 text-center">Fetch a Pokémon</h2>
+    <div class="flex flex-col items-center space-y-4">
+      <input 
+        type="text" 
+        id="pokemonName" 
+        placeholder="Ex. pikachu or charmander or bulbasaur or squirtle"
+        class="w-full px-4 py-2 border border-gray-300 rounded"
+      >
+      <button 
+        onclick="fetchData()"
+        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition" 
+      >
+        Fetch Pokémon
+      </button>
+      <img 
+        src="" 
+        alt="Pokémon Sprite" 
+        id="pokemonSprite" 
+        class="w-32 h-32 object-contain mt-4 hidden"
+      >
+    </div>
+  </section>
+
+  <!-- Footer with Custom SVG Graphic -->
+  <footer class="mt-12 p-6 bg-black text-white flex flex-col md:flex-row justify-between items-center">
+    <p>&copy; 2025 AutoMax Dealership</p>
+    <div class="mt-4 md:mt-0">
+      <!-- Custom SVG: Globe -->
+      <svg xmlns="http://www.w3.org/2000/svg"
+       viewBox="0 0 24 24"
+       class="w-8 h-8 fill-current text-blue-400 inline-block">
+    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" />
+    <line x1="4" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2" />
+  </svg>
+    </div>
+  </footer>
+
+  <!-- Fetch Pokémon Script -->
+  <script>
+    async function fetchData() {
+      try {
+        const pokemonName = document.getElementById("pokemonName").value.trim().toLowerCase();
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
+
+        if (!response.ok) {
+          throw new Error("Could not fetch resource");
+        }
+
+        const data = await response.json();
+        const pokemonSprite = data.sprites.front_default;
+        const imgElement = document.getElementById("pokemonSprite");
+
+        imgElement.src = pokemonSprite;
+        imgElement.classList.remove("hidden");
+      } catch (error) {
+        console.error(error);
+        alert("Pokémon not found. Please try another name.");
+      }
+    }
+  </script>
+
+</body>
+</html>
